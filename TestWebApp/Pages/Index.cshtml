@@ -1,0 +1,42 @@
+@page
+@using System.Security.Claims
+@model TestWebApp.Pages.IndexModel
+
+<h1>AzureEntraAuth Test Home</h1>
+
+@if (User.Identity?.IsAuthenticated ?? false)
+{
+    <p class="text-success">You are signed in as <strong>@User.Identity!.Name</strong>.</p>
+
+    <h3>Claims</h3>
+    <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var claim in User.Claims)
+        {
+            <tr>
+                <td>@claim.Type</td>
+                <td>@claim.Value</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <h3>Groups</h3>
+    <ul>
+    @foreach (var group in Model.Groups)
+    {
+        <li>@group</li>
+    }
+    </ul>
+}
+else
+{
+    <p class="text-warning">You are not signed in.</p>
+    <a class="btn btn-primary" href="/MicrosoftIdentity/Account/SignIn">Sign in with Azure Entra ID</a>
+}

@@ -1,0 +1,11 @@
+@page
+@model TestWebApp.Pages.DbTestModel
+
+<h2>DB Test</h2>
+
+<ul>
+@foreach (var item in Model.Items)
+{
+    <li>@item.Id - @item.Name</li>
+}
+</ul>

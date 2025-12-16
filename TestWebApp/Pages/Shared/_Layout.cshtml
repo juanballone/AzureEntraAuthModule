@@ -1,0 +1,39 @@
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@{
+    var isAuthenticated = Context.User?.Identity?.IsAuthenticated ?? false;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>AzureEntraAuth Test App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">AzureEntraAuth Test</a>
+            <div class="d-flex">
+                @if (isAuthenticated)
+                {
+                    <span class="navbar-text me-3">Hello, @User.Identity!.Name</span>
+                    <form method="post" asp-page="/Logout">
+                        <button class="btn btn-outline-light btn-sm" type="submit">Sign out</button>
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-outline-light btn-sm" href="/MicrosoftIdentity/Account/SignIn">Sign in</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+</html>
